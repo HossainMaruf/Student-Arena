@@ -85,3 +85,9 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+.RegisterContainer {
+      box-shadow: 2px 6px 20px 7px rgba(58,26,26,0.32);
+-webkit-box-shadow: 2px 6px 20px 7px rgba(58,26,26,0.32);
+-moz-box-shadow: 2px 6px 20px 7px rgba(58,26,26,0.32);
+}

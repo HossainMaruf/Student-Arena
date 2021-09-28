@@ -12,6 +12,7 @@ import {updateCall} from '../../apiCalls';
 import "./topbar.css";
 
 export default function Topbar() {
+  const [Imgfile, setImgFile] = useState(null);
   const history = useHistory();
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user, dispatch} = useContext(AuthContext);
@@ -32,6 +33,12 @@ export default function Topbar() {
   const renderPasswordTooltip = (props) => (
   <Tooltip id="button-tooltip" {...props}>
     click to edit password
+  </Tooltip>
+);
+
+  const renderProfilePhoto = (props) => (
+  <Tooltip id="button-tooltip" {...props}>
+    click to upload profile photo
   </Tooltip>
 );
 
@@ -71,6 +78,31 @@ export default function Topbar() {
     } catch(error) {
         alert('Update Failed');
     }
+  } 
+
+  const saveProfilePic = async (value) => {
+    //console.log(value);
+    if(value) {
+    const pathArray = value.split('\\');
+    const file = pathArray[pathArray.length - 1];
+    //console.log(file);
+    const fileName = Date.now() + file;
+    const data = new FormData();
+     try {
+        data.append('file', {fieldname: file, originalname: fileName}, fileName);
+        await axios.post("/upload", data);
+      } catch (err) {
+        console.log("File Upload Failded");
+      }
+
+    try {
+      updateCall({userID:user._id, profilePicture:fileName}, dispatch);
+      //window.location.reload();
+      //localStorage.clear();
+    } catch(error) {
+        alert('Update Failed');
+    }
+  }
   }
   const cancel = () => {}
 
@@ -150,11 +182,30 @@ export default function Topbar() {
                 </OverlayTrigger>
             
             </div>
-         {/* <p>
+            <div>
+                <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderProfilePhoto}
+                  >
+                  <Button variant="secondary">
+                   <EasyEdit
+              type="file"
+              accept=".png .jpeg .jpg"
+              onSave={saveProfilePic}
+              onCancel={cancel}
+              saveButtonLabel="Save"
+              cancelButtonLabel="Cancel"
+              attributes={{ name: "awesome-input", id: 1}}
+            />
+                  </Button>
+                </OverlayTrigger>
+            </div>
+          <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
-          </p>*/}
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={(e) => setModalShow(false)}>Close</Button>

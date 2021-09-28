@@ -4,6 +4,7 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import axios from "axios";
 import { format } from "timeago.js";
+import EasyEdit from 'react-easy-edit';
 import {AuthContext} from '../../context/AuthContext';
 import {Card, Dropdown, DropdownButton, Button, Modal} from 'react-bootstrap';
 // import {Users} from '../../dummyData';
@@ -16,6 +17,18 @@ export default function Post({ post }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const {user:currentUser} = useContext(AuthContext);
   const [modalShow, setModalShow] = useState(false);
+
+    // Helper function
+    const cancel = () => {}
+  const saveName = async (value) => {
+    try {
+      console.log(value);
+      //updateCall({userID:user._id, username:value}, dispatch);
+      //window.location.reload();
+    } catch(error) {
+        alert('Update Failed');
+    }
+  }
 
    const deletePostHandler = async () => {
     try {
@@ -91,11 +104,25 @@ export default function Post({ post }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p>
+           <div className="postCenter">
+          <EasyEdit
+                  type="text"
+                  value={post?.desc}
+                  onSave={saveName}
+                  onCancel={cancel}
+                  className="easyEditItem"
+                  saveButtonLabel="Save"
+                  cancelButtonLabel="Cancel"
+                  attributes={{ name: "awesome-input", id: 1}}
+                />
+          <img className="postImg" src={post.img && !post.img.includes(".pdf")? PF+post.img : null} alt="" />
+          {post.img && post.img.includes(".pdf") && (
+              <div className="pdfContainer">
+                  <i className="fas fa-file-pdf fa-7x"></i>
+                  <span>{post.img}</span>
+              </div>
+            )}
+        </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={(e) => setModalShow(false)}>Close</Button>
