@@ -7,9 +7,6 @@ const User = require("../models/User");
 
 // update user
 router.put('/:id', async (req, res, next) => {
-            // console.log((req.body.userID));
-            // console.log((req.body.userID));
-            // console.log(req.body.userID == req.params.id);
     if(req.body.userID === req.params.id) {
         if(req.body.userID) {
             if(req.body.password) {

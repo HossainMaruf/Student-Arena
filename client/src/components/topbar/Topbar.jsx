@@ -182,30 +182,8 @@ export default function Topbar() {
                 </OverlayTrigger>
             
             </div>
-            <div>
-                <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderProfilePhoto}
-                  >
-                  <Button variant="secondary">
-                   <EasyEdit
-              type="file"
-              accept=".png .jpeg .jpg"
-              onSave={saveProfilePic}
-              onCancel={cancel}
-              saveButtonLabel="Save"
-              cancelButtonLabel="Cancel"
-              attributes={{ name: "awesome-input", id: 1}}
-            />
-                  </Button>
-                </OverlayTrigger>
-            </div>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p>
+            
+          <p>Have a relax. See u not for mind.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={(e) => setModalShow(false)}>Close</Button>
@@ -247,7 +225,7 @@ export default function Topbar() {
               <span className="topbarIconBadge">1</span>
             </div>
             <div className="topbarIconItem">
-              <Chat />
+              <Link to="/messenger" style={{color: "white"}}><Chat /></Link>
               <span className="topbarIconBadge">1</span>
             </div>
             <div className="topbarIconItem">

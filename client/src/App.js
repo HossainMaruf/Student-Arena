@@ -5,6 +5,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import {AuthContext} from './context/AuthContext';
+import Messenger from './pages/messenger/Messenger';
 import Favicon from 'react-favicon'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
               <Route path="/register">{user ? <Redirect to="/" /> : <Register />}</Route>
               <Route exact path="/profile/:username"><Profile /></Route>       
+              <Route path="/messenger"><Messenger/></Route>
               <Route path="/"><Home /></Route>
           </Switch>) : (
               <Switch>

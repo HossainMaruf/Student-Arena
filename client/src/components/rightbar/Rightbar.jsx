@@ -75,6 +75,10 @@ export default function Rightbar({ user }) {
             userID: currentUser._id,
           });
           dispatch({ type: "FOLLOW", payload: user._id });
+          await axios.post("/conversations/", {
+            senderId: currentUser._id,
+            receiverId: user._id
+          });
         }
       } catch (err) {
         console.log(err);

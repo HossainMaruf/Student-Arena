@@ -20,13 +20,14 @@ export default function Post({ post }) {
 
     // Helper function
     const cancel = () => {}
-  const saveName = async (value) => {
+  const savePost = async (value) => {
     try {
-      console.log(value);
+      //console.log(value);
+      await axios.put("/posts/"+post._id, {userID:currentUser._id, desc:value});
       //updateCall({userID:user._id, username:value}, dispatch);
-      //window.location.reload();
+      window.location.reload();
     } catch(error) {
-        alert('Update Failed');
+        alert('Post Update Failed');
     }
   }
 
@@ -108,7 +109,7 @@ export default function Post({ post }) {
           <EasyEdit
                   type="text"
                   value={post?.desc}
-                  onSave={saveName}
+                  onSave={savePost}
                   onCancel={cancel}
                   className="easyEditItem"
                   saveButtonLabel="Save"
